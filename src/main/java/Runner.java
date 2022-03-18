@@ -1,55 +1,82 @@
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import Animal.Animal;
+import Animal.Data.*;
+import Animal.Pets.*;
+import Animal.Birds.*;
 
 public class Runner {
     public static void main(String[] args) {
         List<Animal> animals = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         while (true) {
-
             System.out.println("Выберите команду add/list/exit");
-            String s = sc.next().trim().toUpperCase(Locale.ROOT);
+            String input = scanner.next().trim().toUpperCase(Locale.ROOT);
+            var commands = Command.values();
+            boolean isCommandExist = false;
+            for (Command command : commands) {
+                if (command.getCommand().equals(input)) {
+                    isCommandExist = true;
+                    break;
+                }
+            }
 
-            var t = Command.valueOf(s);
+            if (!isCommandExist) {
+                System.out.printf("Команда %s не поддерживается\n", input);
+                continue;
+            }
+            var command = Command.valueOf(input);
 
-            switch (t) {
-                case ADD:
-                    System.out.println("Какое животное? cat/dog/duck");
-                    String animalType = sc.next().trim().toLowerCase(Locale.ROOT);
+            switch (command) {
+                case ADD: {
+
+                    String animalTypeInput;
+
+                    while (true) {
+                        System.out.println("Какое животное? cat/dog/duck");
+                        animalTypeInput = scanner.next().trim().toUpperCase(Locale.ROOT);
+                        var animalTypes = AnimalType.values();
+                        boolean isAnimalTypeExist = false;
+                        for (AnimalType animalType : animalTypes) {
+                            if (animalType.getAnimalType().equals(animalTypeInput)) {
+                                isAnimalTypeExist = true;
+                                break;
+                            }
+                        }
+                        if (!isAnimalTypeExist) {
+                            System.out.printf("Животного %s не существует. Введите еще раз\n", animalTypeInput);
+                            continue;
+                        }
+                        break;
+                    }
+
                     Animal animal = null;
 
-                    if (animalType.equals("cat")) {
+                    if (animalTypeInput.equals(AnimalType.CAT.getAnimalType())) {
                         animal = new Cat();
-                        generateAnimal(animal, sc);
-                    } else if (animalType.equals("dog")) {
+                        generateAnimal(animal, scanner);
+                    } else if (animalTypeInput.equals(AnimalType.DOG.getAnimalType())) {
                         animal = new Dog();
-                        generateAnimal(animal, sc);
-                    }
-                    else if (animalType.equals("duck")) {
+                        generateAnimal(animal, scanner);
+                    } else if (animalTypeInput.equals(AnimalType.DUCK.getAnimalType())) {
                         animal = new Duck();
-                        generateAnimal(animal, sc);
+                        generateAnimal(animal, scanner);
                     }
                     animals.add(animal);
                     animal.say();
                     break;
-
+                }
                 case LIST:
-                    for (Animal a : animals) {
-                        a.say();
-                        System.out.println(a);
+                    for (Animal animal : animals) {
+                        animal.say();
+                        System.out.println(animal);
                     }
                     System.out.println("list");
                     break;
                 case EXIT:
                     System.exit(0);
                     break;
-                default:
-                    System.out.println("Wrong word");
             }
         }
     }
@@ -57,8 +84,19 @@ public class Runner {
     private static void generateAnimal(Animal animal, Scanner scanner) {
         System.out.println("Введите имя");
         animal.setName(scanner.next().trim().toLowerCase(Locale.ROOT));
-        System.out.println("Введите возраст");
-        animal.setAge(scanner.nextInt());
+
+        int age;
+        do {
+            System.out.println("Введите возраст");
+            age = scanner.nextInt();
+            if (age < 0 || age > 99) {
+                System.out.println("Неправильный возраст. Введите еще раз");
+            } else {
+                break;
+            }
+        } while (true);
+
+        animal.setAge(age);
         System.out.println("Введите вес");
         animal.setWeight(scanner.nextInt());
         System.out.println("Введите цвет");

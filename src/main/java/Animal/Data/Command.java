@@ -1,8 +1,10 @@
+package Animal.Data;
+
 public enum Command {
 
-    ADD("add"),
-    LIST("list"),
-    EXIT("exit");
+    ADD("ADD"),
+    LIST("LIST"),
+    EXIT("EXIT");
 
     public final String name;
 
@@ -12,4 +14,5 @@ public enum Command {
     Command(String name) {
         this.name = name;
     }
+
 }

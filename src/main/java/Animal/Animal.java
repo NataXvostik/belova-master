@@ -1,4 +1,6 @@
-public class Animal implements Fly{
+package Animal;
+
+public abstract class Animal {
     private String name;
     private int age;
     private int weight;
@@ -68,11 +70,6 @@ public class Animal implements Fly{
         }
 
         return "Привет! меня зовут " + name + ", мне " + age + " " + year + ", я вешу - " + weight + " кг, мой цвет - " + color;
-    }
-
-    @Override
-    public void Fly() {
-        System.out.println("Я лечу");
     }
 }
 
