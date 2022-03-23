@@ -1,6 +1,6 @@
-package Animal.Pets;
+package animal.pets;
 
-import Animal.Animal;
+import animal.Animal;
 public class Cat extends Animal {
     @Override
     public void say() {

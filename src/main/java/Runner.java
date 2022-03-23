@@ -1,9 +1,9 @@
 import java.util.*;
 
-import Animal.Animal;
-import Animal.Data.*;
-import Animal.Pets.*;
-import Animal.Birds.*;
+import animal.Animal;
+import animal.data.*;
+import animal.pets.*;
+import animal.birds.*;
 
 public class Runner {
     public static void main(String[] args) {

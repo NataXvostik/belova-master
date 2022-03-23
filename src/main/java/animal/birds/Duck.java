@@ -1,5 +1,5 @@
-package Animal.Birds;
-import Animal.Animal;
+package animal.birds;
+import animal.Animal;
 
 
 public class Duck extends Animal implements Fly {
