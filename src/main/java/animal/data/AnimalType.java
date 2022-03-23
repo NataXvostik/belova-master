@@ -5,7 +5,7 @@ public enum AnimalType {
     DOG("DOG"),
     DUCK("DUCK");
 
-    public final String name;
+    private final String name;
 
     public String getAnimalType() {
         return name;

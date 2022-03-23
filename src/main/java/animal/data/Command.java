@@ -6,7 +6,7 @@ public enum Command {
     LIST("LIST"),
     EXIT("EXIT");
 
-    public final String name;
+    private final String name;
 
     public String getCommand() {
         return name;
