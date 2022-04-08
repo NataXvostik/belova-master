@@ -4,6 +4,7 @@ import animal.Animal;
 import animal.data.*;
 import animal.pets.*;
 import animal.birds.*;
+import utils.EnumUtils;
 
 public class Runner {
     public static void main(String[] args) {
@@ -13,14 +14,7 @@ public class Runner {
         while (true) {
             System.out.println("Выберите команду add/list/exit");
             String input = scanner.next().trim().toUpperCase(Locale.ROOT);
-            var commands = Command.values();
-            boolean isCommandExist = false;
-            for (Command command : commands) {
-                if (command.getCommand().equals(input)) {
-                    isCommandExist = true;
-                    break;
-                }
-            }
+            boolean isCommandExist = EnumUtils.isValueInEnum(Command.values(), input);
 
             if (!isCommandExist) {
                 System.out.printf("Команда %s не поддерживается\n", input);
@@ -36,14 +30,8 @@ public class Runner {
                     while (true) {
                         System.out.println("Какое животное? cat/dog/duck");
                         animalTypeInput = scanner.next().trim().toUpperCase(Locale.ROOT);
-                        var animalTypes = AnimalType.values();
-                        boolean isAnimalTypeExist = false;
-                        for (AnimalType animalType : animalTypes) {
-                            if (animalType.getAnimalType().equals(animalTypeInput)) {
-                                isAnimalTypeExist = true;
-                                break;
-                            }
-                        }
+                        boolean isAnimalTypeExist = EnumUtils.isValueInEnum(AnimalType.values(), animalTypeInput);
+
                         if (!isAnimalTypeExist) {
                             System.out.printf("Животного %s не существует. Введите еще раз\n", animalTypeInput);
                             continue;
@@ -53,13 +41,13 @@ public class Runner {
 
                     Animal animal = null;
 
-                    if (animalTypeInput.equals(AnimalType.CAT.getAnimalType())) {
+                    if (animalTypeInput.equals(AnimalType.CAT.name())) {
                         animal = new Cat();
                         generateAnimal(animal, scanner);
-                    } else if (animalTypeInput.equals(AnimalType.DOG.getAnimalType())) {
+                    } else if (animalTypeInput.equals(AnimalType.DOG.name())) {
                         animal = new Dog();
                         generateAnimal(animal, scanner);
-                    } else if (animalTypeInput.equals(AnimalType.DUCK.getAnimalType())) {
+                    } else if (animalTypeInput.equals(AnimalType.DUCK.name())) {
                         animal = new Duck();
                         generateAnimal(animal, scanner);
                     }
